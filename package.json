@@ -1,0 +1,32 @@
+{
+  "name": "thrift-mock",
+  "version": "0.0.6",
+  "description": "mock data by thrift idl",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "thrift",
+    "mock"
+  ],
+  "author": "wangzengdi",
+  "license": "ISC",
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "mockjs": "^1.0.1-beta3",
+    "ramda": "^0.24.1",
+    "rimraf": "^2.6.1",
+    "thrift-parser": "^0.4.2"
+  },
+  "devDependencies": {
+    "tape": "^4.8.0"
+  },
+  "peerDependencies": {
+    "eslint": "^3.19.0 || ^4.3.0",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0"
+  }
+}
