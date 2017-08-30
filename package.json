@@ -1,6 +1,6 @@
 {
   "name": "thrift-mock",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "mock data by thrift idl",
   "main": "./src/index.js",
   "scripts": {
