@@ -4,11 +4,17 @@ const {
 } = require('./util');
 
 // thrift types: https://thrift.apache.org/docs/types
+// thrift idl:   https://thrift.apache.org/docs/idl
 const BASE_TYPES = ['bool', 'byte', 'i16', 'i32', 'i64', 'double', 'string', 'void'];
 
 const isBaseTypes = R.contains(R.__, BASE_TYPES);
 
 const isListLike = R.contains(R.__, ['list', 'set']);
+
+const isTypedef = R.curry((ast, type) => R.compose(
+  R.has(type),
+  R.pathOr({}, ['typedef'])
+)(ast));
 
 const generateBaseType = R.cond([
   [R.contains(R.__, ['byte', 'i16', 'i32', 'i64']), R.always('@integer(0, 100)')],
@@ -34,37 +40,40 @@ const getStruct = R.curry((ast, type) => R.compose(
 const generate = R.curry((ast, type) => R.cond([
   [
     R.is(String),
-    R.ifElse(
-      isBaseTypes,
-      generateBaseType,
-      R.compose(
-        next => R.transduce(
-          R.map(
-            R.converge(
-              R.objOf,
-              [
-                R.converge(
-                  R.concat,
-                  [
-                    R.prop('name'),
-                    R.compose(
-                      t => (isListLike(t) ? '|3-6' : ''),
-                      R.defaultTo(''),
-                      R.path(['type', 'name'])
-                    ),
-                  ]
-                ),
-                R.compose(generate(next.ast), R.prop('type')),
-              ]
-            )
+    R.cond([
+      [isBaseTypes, generateBaseType],
+      [isTypedef(ast), () => generate(ast, ast.typedef[type].type)],
+      [
+        R.T,
+        R.compose(
+          next => R.transduce(
+            R.map(
+              R.converge(
+                R.objOf,
+                [
+                  R.converge(
+                    R.concat,
+                    [
+                      R.prop('name'),
+                      R.compose(
+                        t => (isListLike(t) ? '|3-6' : ''),
+                        R.defaultTo(''),
+                        R.path(['type', 'name'])
+                      ),
+                    ]
+                  ),
+                  R.compose(generate(next.ast), R.prop('type')),
+                ]
+              )
+            ),
+            R.merge,
+            {},
+            next.struct
           ),
-          R.merge,
-          {},
-          next.struct
+          getStruct(ast)
         ),
-        getStruct(ast)
-      )
-    ),
+      ],
+    ]),
   ],
   [
     R.is(Object),

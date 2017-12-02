@@ -5,6 +5,7 @@ const config = {
   service: [
     require.resolve('./idl/aService.thrift'),
     require.resolve('./idl/bService.thrift'),
+    require.resolve('./idl/extendsService.thrift'),
   ],
   output: {
     path: path.resolve(__dirname, 'mockapi'),
