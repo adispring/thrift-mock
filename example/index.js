@@ -14,7 +14,7 @@ const parstAstJson = R.compose(
 
 /* const ast = parstAstJson(config.service[0]);*/
 /* const ast1 = parstAstJson(config.service[1]);*/
-/* var astExtends = parstAstJson(config.service[2]);*/
+var astExtends = parstAstJson(config.service[2]);
 var mockExtendsData = mock.parseAndMock(config.service[2]);
 
 /* console.log(ast);*/
