@@ -5,13 +5,13 @@ const recursiveParser = require('./recursiveParser');
 const recursiveMock = require('./recursiveMock');
 const writeService = require('./writeService');
 
-const parseAndMock = R.compose(
-  recursiveMock(''),
+const parseAst = R.compose(
   recursiveParser,
   path.resolve
 );
 
-const parseAst = R.compose(
+const parseAndMock = R.compose(
+  recursiveMock(''),
   recursiveParser,
   path.resolve
 );
