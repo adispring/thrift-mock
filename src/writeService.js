@@ -33,4 +33,4 @@ const writeService = R.curry((outpath, astData) => R.forEachObjIndexed((val, key
   )(val);
 })(astData));
 
-module.export = writeService;
+module.exports = writeService;

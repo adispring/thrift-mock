@@ -5,7 +5,7 @@ const generate = require('../src/generate');
 const config = require('./thriftmock.config');
 const mock = require('../src/index');
 
-/* mock(config);*/
+mock(config);
 
 const parstAstJson = R.compose(
   data => JSON.stringify(data, null, 2),
