@@ -1,7 +1,5 @@
 const R = require('ramda');
 const tape = require('tape');
-const generate = require('../src/generate');
-const getStruct = generate.getStruct;
 const recursiveParser = require('../src/recursiveParser');
 const aService = require('./AService');
 const config = require('../example/thriftmock.config');
@@ -34,5 +32,3 @@ tape('recursiveParser', t => {
 
   t.end();
 });
-
-tape

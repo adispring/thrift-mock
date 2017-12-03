@@ -17,7 +17,7 @@ const parseAndMock = R.compose(
 );
 
 const mock = config => R.compose(
-  R.map(writeService(config.output.path)),
+  R.map(writeService(config.output.path, 0, '')),
   R.map(parseAndMock),
   R.path(['service'])
 )(config);
