@@ -1,45 +1,16 @@
 const fs = require('fs');
 const path = require('path');
 const R = require('ramda');
-const rimraf = require('rimraf');
-const mkdirp = require('mkdirp');
+const shell = require('shelljs');
 const { CLIEngine } = require('eslint');
 
-const recursiveParser = require('../src/recursiveParser');
-const generate = require('../src/generate');
+const recursiveParser = require('./recursiveParser');
+const recursiveMock = require('./recursiveMock');
 
 const eslintCli = new CLIEngine({
   fix: true,
   useEslintrc: true,
 });
-
-const recursiveMock = R.curry((ext, ast) => R.compose(
-  R.map(
-    R.compose(
-      R.converge(R.merge, [
-        R.ifElse(
-          R.has('extends'),
-          R.compose(
-            ([module, serviceName]) => ({
-              extendService: recursiveMock(
-                R.join('.', [module, serviceName]),
-                ast.include[module]
-              ),
-            }),
-            R.split('.'),
-            R.path(['extends'])
-          ),
-          R.always({})
-        ),
-        R.evolve({
-          functions: R.map(item => R.assoc('mock', generate(ast, item.type), item)),
-        }),
-      ])
-    )
-  ),
-  R.unless(() => R.isEmpty(ext), R.pick(R.compose(R.of, R.last, R.split('.'))(ext))),
-  R.path(['service'])
-)(ast));
 
 const parseAndMock = R.compose(
   recursiveMock(''),
@@ -53,8 +24,9 @@ const parseAst = R.compose(
 );
 
 const writeService = R.curry((outpath, astData) => R.forEachObjIndexed((val, key) => {
-  rimraf.sync(`${outpath}/${key}`);
-  mkdirp.sync(`${outpath}/${key}`);
+  const serviceDir = `${outpath}/${key}`;
+  shell.rm('-rf', serviceDir);
+  shell.mkdir('-p', serviceDir);
   R.compose(
     R.forEachObjIndexed((valI, keyI) => {
       const methodPath = `${outpath}/${key}/${keyI}.js`;

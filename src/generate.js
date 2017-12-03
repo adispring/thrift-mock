@@ -1,7 +1,5 @@
 const R = require('ramda');
-const {
-  UNMATCHED,
-} = require('./util');
+const { UNMATCHED } = require('./util');
 
 // thrift types: https://thrift.apache.org/docs/types
 // thrift idl:   https://thrift.apache.org/docs/idl
