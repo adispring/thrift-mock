@@ -9,15 +9,15 @@ include "bService.thrift"
 // thrift sample code:
 // https://git-wip-us.apache.org/repos/asf?p=thrift.git;a=blob_plain;f=test/ThriftTest.thrift;hb=HEAD
 
-// enum Numberz
-// {
-//   ONE = 1,
-//   TWO,
-//   THREE,
-//   FIVE = 5,
-//   SIX,
-//   EIGHT = 8
-// }
+enum Numberz
+{
+  ONE = 1,
+  TWO,
+  THREE,
+  FIVE = 5,
+  SIX,
+  EIGHT = 8
+}
 
 typedef i64 UserId
 struct Bonk
@@ -40,7 +40,7 @@ service CService extends bService.BService {
    * @param Numberz thing - the Numberz to print
    * @return Numberz - returns the Numberz 'thing'
    */
-  // Numberz      testEnum(1: Numberz thing),
+  Numberz      testEnum(1: Numberz thing),
 
   /**
    * Prints 'testTypedef("%d")' with thing as '%d'

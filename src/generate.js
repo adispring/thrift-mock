@@ -9,10 +9,14 @@ const isBaseTypes = R.contains(R.__, BASE_TYPES);
 
 const isListLike = R.contains(R.__, ['list', 'set']);
 
-const isTypedef = R.curry((ast, type) => R.compose(
+// Definition      ::=  Const | Typedef | Enum | Senum | Struct | Union | Exception | Service
+const isDefinition = metaType => R.curry((ast, type) => R.compose(
   R.has(type),
-  R.pathOr({}, ['typedef'])
+  R.pathOr({}, [metaType])
 )(ast));
+
+const isTypedef = isDefinition('typedef');
+const isEnum = isDefinition('enum');
 
 const generateBaseType = R.cond([
   [R.contains(R.__, ['byte', 'i16', 'i32', 'i64']), R.always('@integer(0, 100)')],
@@ -22,6 +26,22 @@ const generateBaseType = R.cond([
   [R.equals('void'), R.always('void')],
   [R.T, () => R.always(UNMATCHED)],
 ]);
+
+const generateEnum = R.compose(
+  arr => `@pick(${JSON.stringify(arr)})`,
+  R.reduce(
+    (acc, item) => R.ifElse(
+      R.has('value'),
+      R.compose(R.append(R.__, acc), R.prop('value')),
+      () => R.ifElse(
+        R.isEmpty,
+        R.always([0]),
+        R.append(R.last(acc) + 1)
+      )(acc)
+    )(item),
+    []
+  )
+);
 
 const getStruct = R.curry((ast, type) => R.compose(
   R.ifElse(
@@ -35,11 +55,13 @@ const getStruct = R.curry((ast, type) => R.compose(
   R.split('.')
 )(type));
 
+
 const generate = R.curry((ast, type) => R.cond([
   [
     R.is(String),
     R.cond([
       [isBaseTypes, generateBaseType],
+      [isEnum(ast), () => generateEnum(ast.enum[type].items)],
       [isTypedef(ast), () => generate(ast, ast.typedef[type].type)],
       [
         R.T,
