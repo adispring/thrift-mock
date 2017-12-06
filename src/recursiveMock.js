@@ -1,7 +1,7 @@
 const R = require('ramda');
 const generate = require('../src/generate');
 
-const recursiveMock = R.curry((ext, ast) => R.compose(
+const recursiveMock = R.curry((extend, ast) => R.compose(
   R.map(
     R.compose(
       R.converge(R.merge, [
@@ -25,8 +25,8 @@ const recursiveMock = R.curry((ext, ast) => R.compose(
       ])
     )
   ),
-  R.unless(() => R.isEmpty(ext), R.pick(R.compose(R.of, R.last, R.split('.'))(ext))),
-  R.path(['service'])
+  R.unless(() => R.isEmpty(extend), R.pick(R.compose(R.of, R.last, R.split('.'))(extend))),
+  R.pathOr({}, ['service'])
 )(ast));
 
 module.exports = recursiveMock;
