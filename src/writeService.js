@@ -22,12 +22,13 @@ const writeService = R.curry((outpath, recursiveDeep, topLevelServiceDir, astDat
           'module.exports = { statusCode: 200, body };',
         ].join('');
 
-        const result = eslintCli.executeOnText(methodContent, methodPath);
 
-        fs.writeFile(methodPath, result.results[0].output || methodContent, (err) => {
+        fs.writeFile(methodPath, methodContent, (err) => {
           if (err) {
             throw err;
           }
+          const result = eslintCli.executeOnText(methodContent, methodPath);
+          CLIEngine.outputFixes(result);
           if (recursiveDeep > 0) {
             shell.ln('-sf', methodPath, `${topLevelServiceDir}/${keyI}.js`);
           }

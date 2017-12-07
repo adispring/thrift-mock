@@ -1,0 +1,1 @@
+/Users/wangzengdi/JavaScript/playground/thrift-mock/example/mockapi/CService/testEnum.js
