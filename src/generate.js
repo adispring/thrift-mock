@@ -24,7 +24,7 @@ const generateBaseType = R.cond([
   [R.equals('double'), R.always('@float(0, 100, 2, 2)')],
   [R.equals('bool'), R.always('@boolean')],
   [R.equals('void'), R.always('void')],
-  [R.T, () => R.always(UNMATCHED)],
+  [R.T, R.always(UNMATCHED)],
 ]);
 
 const generateEnum = R.compose(
