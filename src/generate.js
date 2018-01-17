@@ -9,6 +9,8 @@ const isBaseTypes = R.contains(R.__, BASE_TYPES);
 
 const isListLike = R.contains(R.__, ['list', 'set']);
 
+const isBinaryType = R.contains(R.__, ['binary']);
+
 // Definition      ::=  Const | Typedef | Enum | Senum | Struct | Union | Exception | Service
 const isDefinition = metaType => R.curry((ast, type) => R.compose(
   R.has(type),
@@ -43,6 +45,8 @@ const generateEnum = R.compose(
   )
 );
 
+const generateBinaryType = R.always('@range(3)');
+
 const getStruct = R.curry((ast, type) => R.compose(
   R.ifElse(
     R.whereEq({ length: 1 }),
@@ -61,6 +65,7 @@ const generate = R.curry((ast, type) => R.cond([
     R.is(String),
     R.cond([
       [isBaseTypes, generateBaseType],
+      [isBinaryType, generateBinaryType],
       [isEnum(ast), () => generateEnum(ast.enum[type].items)],
       [isTypedef(ast), () => generate(ast, ast.typedef[type].type)],
       [
