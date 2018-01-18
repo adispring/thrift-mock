@@ -10,6 +10,10 @@
     "thrift",
     "mock"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:adispring/thrift-mock.git"
+  },
   "author": "wangzengdi",
   "license": "ISC",
   "dependencies": {
