@@ -1,6 +1,12 @@
 /* eslint no-console: 0 */
 const path = require('path');
 
+/**
+ * Mock configuration.
+ * @property [Service] service: Services to mock.
+ * @property {path} output: Mock files' output path
+ */
+
 const config = {
   service: [
     require.resolve('./idl/aService.thrift'),
