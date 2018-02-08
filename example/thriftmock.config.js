@@ -14,6 +14,7 @@ const config = {
     require.resolve('./idl/cService.thrift'),
     require.resolve('./idl/dService.thrift'),
     require.resolve('./idl/eService.thrift'),
+    require.resolve('./idl/fService.thrift'),
   ],
   output: {
     path: path.resolve(__dirname, 'mockapi'),
