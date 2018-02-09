@@ -1,15 +1,15 @@
 const data = {
   namespace: {
     java: {
-      serviceName: 'com.finance.mis.web.account.service',
+      serviceName: 'com.finance.account.service',
     },
   },
   include: {
     pageVo: {
-      path: './a/pageVo.thrift',
+      path: './structDir/a/pageVo.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.account.vo',
+          serviceName: 'com.finance.account.vo',
         },
       },
       include: {
@@ -17,7 +17,7 @@ const data = {
           path: 'accountVo.thrift',
           namespace: {
             java: {
-              serviceName: 'com.finance.mis.web.account.vo',
+              serviceName: 'com.finance.account.vo',
             },
           },
           struct: {
@@ -78,10 +78,10 @@ const data = {
       },
     },
     request: {
-      path: './a/request.thrift',
+      path: './structDir/a/request.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.account.vo',
+          serviceName: 'com.finance.account.vo',
         },
       },
       struct: {
@@ -118,7 +118,7 @@ const data = {
       path: 'exception.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web',
+          serviceName: 'com.finance',
         },
       },
       exception: {

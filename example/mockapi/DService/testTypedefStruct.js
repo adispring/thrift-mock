@@ -1,1 +1,0 @@
-/Users/wangzengdi/JavaScript/playground/thrift-mock/example/mockapi/CService/testTypedefStruct.js

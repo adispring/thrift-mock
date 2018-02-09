@@ -1,15 +1,15 @@
 const data = {
   namespace: {
     java: {
-      serviceName: 'com.finance.mis.web.clearing.service',
+      serviceName: 'com.finance.web.service',
     },
   },
   include: {
     request: {
-      path: './b/request.thrift',
+      path: './structDir/b/request.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.clearing.vo',
+          serviceName: 'com.finance.clearing.vo',
         },
       },
       struct: {
@@ -38,10 +38,10 @@ const data = {
       },
     },
     changeVo: {
-      path: './b/changeVo.thrift',
+      path: './structDir/b/changeVo.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.clearing.vo',
+          serviceName: 'com.finance.clearing.vo',
         },
       },
       struct: {
@@ -70,10 +70,10 @@ const data = {
       },
     },
     stepVo: {
-      path: './b/stepVo.thrift',
+      path: './structDir/b/stepVo.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.clearing.vo',
+          serviceName: 'com.finance.clearing.vo',
         },
       },
       struct: {
@@ -115,7 +115,7 @@ const data = {
       path: 'exception.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web',
+          serviceName: 'com.finance',
         },
       },
       exception: {
@@ -137,15 +137,15 @@ const data = {
       path: 'bService.thrift',
       namespace: {
         java: {
-          serviceName: 'com.finance.mis.web.clearing.service',
+          serviceName: 'com.finance.web.service',
         },
       },
       include: {
         request: {
-          path: './b/request.thrift',
+          path: './structDir/b/request.thrift',
           namespace: {
             java: {
-              serviceName: 'com.finance.mis.web.clearing.vo',
+              serviceName: 'com.finance.clearing.vo',
             },
           },
           struct: {
@@ -174,10 +174,10 @@ const data = {
           },
         },
         changeVo: {
-          path: './b/changeVo.thrift',
+          path: './structDir/b/changeVo.thrift',
           namespace: {
             java: {
-              serviceName: 'com.finance.mis.web.clearing.vo',
+              serviceName: 'com.finance.clearing.vo',
             },
           },
           struct: {
@@ -206,10 +206,10 @@ const data = {
           },
         },
         stepVo: {
-          path: './b/stepVo.thrift',
+          path: './structDir/b/stepVo.thrift',
           namespace: {
             java: {
-              serviceName: 'com.finance.mis.web.clearing.vo',
+              serviceName: 'com.finance.clearing.vo',
             },
           },
           struct: {
@@ -251,7 +251,7 @@ const data = {
           path: 'exception.thrift',
           namespace: {
             java: {
-              serviceName: 'com.finance.mis.web',
+              serviceName: 'com.finance',
             },
           },
           exception: {

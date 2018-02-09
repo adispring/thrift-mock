@@ -1,6 +1,6 @@
 const { mock } = require('mockjs');
 
-const body = mock([
+const data = mock([
   {
     buyTimeBegin: '@integer(0, 100)',
     buyTimeEnd: '@integer(0, 100)',
@@ -10,4 +10,9 @@ const body = mock([
     consumeCount: '@integer(0, 100)',
   },
 ]);
-module.exports = { statusCode: 200, body };
+module.exports = {
+  statusCode: 200,
+  body: {
+    data,
+  },
+};

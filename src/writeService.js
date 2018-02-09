@@ -2,24 +2,28 @@ const fs = require('fs');
 const R = require('ramda');
 const shell = require('shelljs');
 const { CLIEngine } = require('eslint');
+const { formatExportsTemplate } = require('./utils/writeServiceUtils');
 
 const eslintCli = new CLIEngine({
   fix: true,
   useEslintrc: true,
 });
 
-const writeService = R.curry((outpath, recursiveDeep, topLevelServiceDir, astData) =>
+const writeService = R.curry((opts, recursiveDeep, topLevelServiceDir, astData) =>
   R.forEachObjIndexed((val, key) => {
-    const serviceDir = `${outpath}/${key}`;
+    const { outpath, exportsTemplate } = opts;
+    const serviceDir = `${opts.outpath}/${key}`;
     shell.rm('-rf', serviceDir);
     shell.mkdir('-p', serviceDir);
+    const realExportsTemplate = formatExportsTemplate(exportsTemplate);
     R.compose(
       R.forEachObjIndexed((valI, keyI) => {
         const methodPath = `${outpath}/${key}/${keyI}.js`;
+
         const methodContent = [
           'const { mock } = require(\'mockjs\');\n',
-          `const body = mock(${JSON.stringify(valI.mock, null, 2)});\n`,
-          'module.exports = { statusCode: 200, body };',
+          `const data = mock(${JSON.stringify(valI.mock, null, 2)});\n`,
+          `${realExportsTemplate};`,
         ].join('');
 
         const result = eslintCli.executeOnText(methodContent, methodPath);
@@ -40,7 +44,7 @@ const writeService = R.curry((outpath, recursiveDeep, topLevelServiceDir, astDat
       R.has('extendService'),
       R.compose(
         writeService(
-          outpath,
+          opts,
           recursiveDeep + 1,
           (R.equals(recursiveDeep, 0) ? serviceDir : topLevelServiceDir)
         ),

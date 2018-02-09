@@ -2,6 +2,11 @@
 
 Mock response data from thrift idl files.
 
+## Main Features
+
+- Customize module.exports template. (the mock data MUST using '@@dataPlaceholder' as its placeholder)
+- Method extends.
+
 ## Config & Execute
 
 ```javascript
@@ -9,11 +14,22 @@ const mock = require('thrift-mock');
 
 const config = {
   service: [
-    require.resolve('./idl/aService.thrift'),
-    require.resolve('./idl/bService.thrift'),
+    require.resolve('./idl/a.thrift'),
+    require.resolve('./idl/b.thrift'),
+    /* require.resolve('./idl/CommonService.thrift'),*/
+    /* require.resolve('./idl/BaseService.thrift'),*/
+    /* require.resolve('./idl/ExtendsService.thrift'),*/
+    /* require.resolve('./idl/GrandExtendsService.thrift'),*/
+    /* require.resolve('./idl/CustomizedTypeService.thrift'),*/
   ],
   output: {
     path: path.resolve(__dirname, 'mockapi'),
+  },
+  exportsTemplate: {
+    statusCode: 200,
+    body: {
+      data: '@@dataPlaceholder',
+    },
   },
 };
 
@@ -43,10 +59,10 @@ idl
 
 ```c++
 // aService.thrift
-namespace java com.finance.mis.web.account.service
+namespace java com.finance.account.service
 
-include "./a/pageVo.thrift"
-include "./a/request.thrift"
+include "./structDir/a/pageVo.thrift"
+include "./structDir/a/request.thrift"
 include "exception.thrift"
 
 struct AStruct {
@@ -60,7 +76,7 @@ service AService {
        pageVo.PageVo search(1:request.Request SearchRequest 2: AStruct personel) throws (1:exception.Exception e) ;
 }
 
-// ./a/pageVo.thrift
+// ./structDir/a/pageVo.thrift
 include "accountVo.thrift"
 
 struct PageVo{
@@ -68,7 +84,7 @@ struct PageVo{
      2:i32 total;
 }
 
-// ./a/accountVo.thrift
+// ./structDir/a/accountVo.thrift
 struct AccountVo {
       1:string accountId;
       2:string partnerName;
@@ -78,7 +94,7 @@ struct AccountVo {
       6:double withdrawRemain;
 }
 
-// ./a/request.thrift
+// ./structDir/a/request.thrift
 struct Request{
       1:i32 partnerId;
       2:string contractNum;
@@ -140,10 +156,7 @@ module.exports = { statusCode: 200, body };
 
 ## TODO
 
-- add unit test
-- add error response by api property: `throws`.
+- add unit test.
 - add args judgement(args' type & count) by api property: `args`.
+- mock data more real.
 
-## DONE
-
-- generate real file from mock data.

@@ -9,15 +9,20 @@ const path = require('path');
 
 const config = {
   service: [
-    require.resolve('./idl/aService.thrift'),
-    require.resolve('./idl/bService.thrift'),
-    require.resolve('./idl/cService.thrift'),
-    require.resolve('./idl/dService.thrift'),
-    require.resolve('./idl/eService.thrift'),
-    require.resolve('./idl/fService.thrift'),
+    require.resolve('./idl/CommonService.thrift'),
+    require.resolve('./idl/BaseService.thrift'),
+    require.resolve('./idl/ExtendsService.thrift'),
+    require.resolve('./idl/GrandExtendsService.thrift'),
+    require.resolve('./idl/CustomizedTypeService.thrift'),
   ],
   output: {
     path: path.resolve(__dirname, 'mockapi'),
+  },
+  exportsTemplate: {
+    statusCode: 200,
+    body: {
+      data: '@@dataPlaceholder',
+    },
   },
 };
 

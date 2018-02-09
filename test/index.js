@@ -21,7 +21,7 @@ tape('recursiveParser', t => {
   );
   t.deepEqual(
     aService.include.pageVo.path,
-    './a/pageVo.thrift',
+    './structDir/a/pageVo.thrift',
     'include struct from different directory'
   );
 
