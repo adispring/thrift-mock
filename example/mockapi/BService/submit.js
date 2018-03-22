@@ -1,9 +1,8 @@
 const { mock } = require('mockjs');
-
-const data = mock('@boolean');
+const originData = mock('@boolean');
 module.exports = {
   statusCode: 200,
   body: {
-    data,
+    data: originData,
   },
 };

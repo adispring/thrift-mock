@@ -1,6 +1,5 @@
 const { mock } = require('mockjs');
-
-const data = mock([
+const originData = mock([
   {
     buyTimeBegin: '@integer(0, 100)',
     buyTimeEnd: '@integer(0, 100)',
@@ -13,6 +12,6 @@ const data = mock([
 module.exports = {
   statusCode: 200,
   body: {
-    data,
+    data: originData,
   },
 };

@@ -1,6 +1,5 @@
 const { mock } = require('mockjs');
-
-const data = mock({
+const originData = mock({
   isShowIncomeExpend: '@boolean',
   isShowDailyProfit: '@boolean',
   isShowBankAccount: '@boolean',
@@ -10,6 +9,6 @@ const data = mock({
 module.exports = {
   statusCode: 200,
   body: {
-    data,
+    data: originData,
   },
 };

@@ -3,7 +3,7 @@ const R = require('ramda');
 const defaultExports = 'module.exports = { statusCode: 200, body: { data } };';
 const formatExports = R.compose(
   exportsStruct => `module.exports = ${exportsStruct}`,
-  R.replace(/["']@@dataPlaceholder["']/g, 'data'),
+  R.replace(/["']@@dataPlaceholder["']/g, 'originData'),
   originExports => JSON.stringify(originExports, null, 2)
 );
 
